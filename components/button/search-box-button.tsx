@@ -18,7 +18,7 @@ const SearchBoxButton = () => {
 
   return (
     <button type="button" className="relative w-full sm:max-w-sm mx-auto text-xs md:text-base md:max-w-none">
-      <div className="flex items-center max-w-[140px] sm:max-w-full md:max-w-full lg:max-w-full xl:max-w-full space-x-2 px-4 py-2 bg-gray-100 dark:bg-gray-800 rounded-lg shadow-sm">
+      <div className="flex items-center sm:max-w-full md:max-w-full lg:max-w-full xl:max-w-full space-x-2 px-4 py-2 bg-gray-100 dark:bg-gray-800 rounded-lg shadow-sm">
         <Search className="w-5 h-5 text-gray-500 dark:text-gray-400" />
         <input
           type="text"
