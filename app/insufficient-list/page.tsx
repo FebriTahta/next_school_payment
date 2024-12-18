@@ -1,8 +1,8 @@
 import PaymentList from "@/components/page/payment-list"
 
 const props =  {
-  title: "Active Payment List",
-  desc: "make payment before the due date passes"
+    title: "Insufficient List",
+    desc: "please complete the payment"
 }
 
 const page = () => {

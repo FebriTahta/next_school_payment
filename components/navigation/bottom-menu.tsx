@@ -47,8 +47,13 @@ export function BottomMenu() {
               </div>
 
               {/* Wallet Minimal Button */}
-              <div className="flex h-8 w-9 items-center justify-end rounded-md bg-gray-200 dark:bg-gray-800 transition-transform duration-200 hover:scale-125">
-                <Link href={"/"} className="p-2">
+              <div 
+                className={`flex h-8 w-9 items-center justify-end rounded-md shrink-0 transition-transform duration-200 ${
+                  pathName === "/insufficient-list"
+                    ? "bg-gradient-to-br from-black to-purple-500 text-white scale-110"
+                    : "bg-gray-200 dark:bg-gray-800 hover:scale-125"
+                }`}>
+                <Link href={"/insufficient-list"} className="p-2">
                   <WalletMinimal className="h-5 w-5" />
                 </Link>
               </div>

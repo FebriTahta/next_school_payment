@@ -1,10 +1,10 @@
 'use client'
 import {motion} from "framer-motion";
 import { Card, CardHeader, CardDescription, CardTitle } from "../ui/card";
-import { List } from "lucide-react";
 import { payment_list_page_props } from "@/interface/payment-list-page-props";
 import {Dates, Time} from "../time";
 import { useState, useEffect } from 'react';
+import PaymentComponentList from "./payment-component-list";
 
 const PaymentList = ({props}: payment_list_page_props) => {
 
@@ -38,8 +38,8 @@ const PaymentList = ({props}: payment_list_page_props) => {
           <CardHeader className="pr-5 pl-5 pt-16">
             <div className="flex flex-row justify-between">
               <div className="flex flex-col text_left">
-                <p className="text-sm">Transaction This Month</p>
-                <small className="text-xs">Last 5 transaction</small>
+                <p className="text-xs">Choose payment component below</p>
+                <small className="text-xs">Showing 10 component</small>
               </div>
               <div className="flex flex-col items-end text_right">
                 <Time/>
@@ -50,34 +50,7 @@ const PaymentList = ({props}: payment_list_page_props) => {
 
           
           {/* transaksi bulan ini */}
-          <div className="overflow-y-auto pb-4 h-[455px] scroll-smooth">
-            {Array(10).fill(null).map((_, index) => (
-              <Card
-                key={index}
-                className="flex flex-col justify-center mx-4 mb-4 p-4 gap-y-2 bg-gray-50 shadow-none dark:bg-transparent rounded-lg"
-              >
-                <div className="flex gap-4 items-center">
-                  {/* Ikon di sebelah kiri */}
-                  <div className="icon">
-                    <List className="h-5 w-5" />
-                  </div>
-                  {/* Teks di sebelah kanan */}
-                  <div className="flex flex-col w-full">
-                    {/* Baris pertama */}
-                    <div className="flex justify-between">
-                      <small className="text-md">SPP/Desember</small>
-                      <small className="text-md">paid off</small>
-                    </div>
-                    {/* Baris kedua */}
-                    <div className="flex justify-between">
-                      <small className="text-[10px]">12-12-2024</small>
-                      <small className="text-[10px]">16:45</small>
-                    </div>
-                  </div>
-                </div>
-              </Card>
-            ))}
-          </div>
+          <PaymentComponentList />
 
           
         </Card>
