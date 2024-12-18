@@ -134,7 +134,7 @@ const Home = () => {
 
           
           {/* transaksi bulan ini */}
-          <div className="overflow-y-auto pb-4 h-52">
+          <div className="overflow-y-auto pb-4 h-52 scroll-smooth">
             {Array(3).fill(null).map((_, index) => (
               <Card
                 key={index}

@@ -38,7 +38,7 @@ const PaymentList = () => {
 
           
           {/* transaksi bulan ini */}
-          <div className="overflow-y-auto pb-4 h-[455px]">
+          <div className="overflow-y-auto pb-4 h-[455px] scroll-smooth">
             {Array(10).fill(null).map((_, index) => (
               <Card
                 key={index}
