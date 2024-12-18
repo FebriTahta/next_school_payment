@@ -1,13 +1,13 @@
 'use client'
 import { motion } from "framer-motion";
-import Link from "next/link";
+// import Link from "next/link";
 import { DarkThemeButton } from "./button/dark-theme-button";
-import Image from "next/image";
+// import Image from "next/image";
 
 const Header = () => {
   return (
     <>
-    <motion.div
+    {/* <motion.div
         initial={{ y: -50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
@@ -25,14 +25,12 @@ const Header = () => {
             />
           </div>
         </Link>
-      </motion.div>
+      </motion.div> */}
 
-      {/* Tombol Tema di pojok kanan atas */}
       <motion.div
         initial={{ y: -50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
-        className="absolute top-4 right-8 z-10"
       >
         <DarkThemeButton />
       </motion.div>

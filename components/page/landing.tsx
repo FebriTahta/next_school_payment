@@ -10,7 +10,7 @@ export const Landing = () => {
   useEffect(() => {
     // Redirect ke halaman home setelah 3 detik
     const timer = setTimeout(() => {
-      router.push('/home'); // Navigasi ke halaman home
+      router.push('/login'); // Navigasi ke halaman home
     }, 3000);
 
     return () => clearTimeout(timer);

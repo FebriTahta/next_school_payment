@@ -39,13 +39,22 @@ export default function RootLayout({
             disableTransitionOnChange
           >
         <Starfall/>
-        <Header/>
-        {children}
+        {/* Header */}
+        <div className="absolute top-4 right-8 z-50">
+          <Header />
+        </div>
+
+        {/* Konten Utama */}
+        <div className="flex-1 flex items-center justify-center">
+          {children}
+        </div>
+
+        {/* Efek dan Elemen Tambahan */}
         <div className="absolute inset-0 z-0 animate-appear opacity-0">
           <Lights />
         </div>
         <div className="absolute inset-0 z-5 bg-grid-white/[0.03]"></div>
-        <BottomMenu/>
+        <BottomMenu />
         </ThemeProvider>
       </body>
     </html>

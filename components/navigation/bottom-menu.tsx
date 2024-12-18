@@ -10,7 +10,7 @@ export function BottomMenu() {
 
   return (
     <>
-      {pathName !== "/" && (
+      {pathName !== "/" && pathName !== "/login" && (
         <div className="fixed inset-x-0 bottom-4 z-50 mx-auto w-full max-w-md pr-5 pl-5">
           <nav className="grid grid-cols-12 items-center gap-2 rounded-xl border bg-background/80 px-3 py-2 shadow-lg backdrop-blur-lg">
             {/* Home Button (2 columns) */}
