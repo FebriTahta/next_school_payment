@@ -27,19 +27,18 @@ const fetchPaymentDetails = async (searchParams: SearchParams) => {
   };
 };
 
-interface PageProps {
-  searchParams: SearchParams;
-}
-
-const Page = async ({ searchParams }: PageProps) => {
-  const props = await fetchPaymentDetails(searchParams);
+export default async function Page({
+  searchParams,
+}: {
+  searchParams: { [key: string]: string | string[] | undefined }
+}) {
+  const typedSearchParams: SearchParams = searchParams as SearchParams;
+  const props = await fetchPaymentDetails(typedSearchParams);
 
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <PaymentList props={props} />
     </Suspense>
   );
-};
-
-export default Page;
+}
 
