@@ -1,23 +1,41 @@
 'use client'
 import {motion} from "framer-motion";
 import { Card, CardHeader, CardDescription, CardTitle } from "../ui/card";
-import { payment_list_page_props } from "@/interface/payment-list-page-props";
-import {Dates, Time} from "../time";
+import { AvailabelPaymentComponentsPageProps, AvailablePaymentComponentsResponse } from "@/interface/payment-list";
 import { useState, useEffect } from 'react';
-import PaymentComponentList from "./payment-component-list";
+import CardItem from "../card-item";
+import { availablePaymentComponents } from "@/app/api/payment-list";
+import SkeletonItemCard from '../skeleton-item-card';
 
-const PaymentList = ({props}: payment_list_page_props) => {
+const PaymentList = ({props}: AvailabelPaymentComponentsPageProps) => {
 
-  const [hydrated, setHydrated] = useState(false);
+  const [paymentList, setPaymentList] = useState<AvailablePaymentComponentsResponse | null>(null);
+  const [loading, setLoading] = useState(true); // loading mulai
+  const [error, setError] = useState<string | null>(null);
+  
 
   useEffect(() => {
-    setHydrated(true);
-  }, []);
-
-  if (!hydrated) return null;
+    const fetchData = async () => {
+      try {
+        const availablePayments = await availablePaymentComponents(
+          props.nis,
+          props.kd_rombel,
+          props.payment_type,
+          props.token
+        );
+        setPaymentList(availablePayments);
+        setLoading(false); // Pastikan loading selesai
+      } catch (error) {
+        const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+        setError(`Failed to fetch: ${errorMessage}`);
+      }
+    };
+    fetchData();
+  }, [props.nis, props.kd_rombel, props.payment_type, props.token]); // Tambahkan semua dependensi
+  
 
   return (
-    <div className="h-full pt-[45%] w-screen max-w-md relative">
+    <div className="h-full pt-[30%] w-screen max-w-md relative">
         <motion.div
           initial={{ y: 0, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
@@ -38,21 +56,51 @@ const PaymentList = ({props}: payment_list_page_props) => {
           <CardHeader className="pr-5 pl-5 pt-16">
             <div className="flex flex-row justify-between">
               <div className="flex flex-col text_left">
-                <p className="text-xs">Choose payment component below</p>
-                <small className="text-xs">Showing 10 component</small>
+                <p className="text-xs">
+                {paymentList?.data.component_list.length !== 0 || error
+                ? (error ? 'Error' : `Choose payment components below`) 
+                : (`Payment components not available`)
+                }
+                </p>
+                <small className="text-xs">
+                  {paymentList?.data.component_list.length !== 0 || error
+                  ? (error ? error : `Showing ${paymentList?.data.component_list.length} component`) 
+                  : (`-`)
+                  }
+                  
+                  
+                </small>
               </div>
               <div className="flex flex-col items-end text_right">
-                <Time/>
-                <Dates/>
+                {/* <Time/>
+                <Dates/> */}
               </div>
             </div>
           </CardHeader>
 
           
           {/* transaksi bulan ini */}
-          <PaymentComponentList />
-
-          
+          <div className="overflow-y-auto pb-4 h-[520px] scroll-smooth">
+            {
+              loading || error || paymentList?.data.component_list.length == 0 ? (
+                <div className='className="flex flex-col justify-center mx-4 mb-4 gap-y-2 bg-gray-50 shadow-none dark:bg-transparent rounded-lg"'>
+                  <SkeletonItemCard/>
+                  {paymentList?.data.component_list.length == 0 || error
+                  ? ( <div className="flex justify-center shadow-none dark:bg-transparent rounded-lg mt-5">
+                        <p className="text-red-500 text-[10px]">
+                          {error ? error : '404 Not Available'}
+                        </p>
+                    </div>) 
+                  : ('')
+                  }
+                </div>
+              ) : (
+                paymentList?.data.component_list.map((item, index) => (
+                  <CardItem key={index} item={item} icon={props.i_pay}/>
+                ))
+              )
+            }
+          </div>
         </Card>
       </div>
       </motion.div>

@@ -1,41 +1,63 @@
-'use client'
-import { motion } from "framer-motion";
-// import Link from "next/link";
-import { DarkThemeButton } from "./button/dark-theme-button";
-// import Image from "next/image";
+'use client';
+
+import { motion } from 'framer-motion';
+import { DarkThemeButton } from './button/dark-theme-button';
+import { LogIn, LogOut } from 'lucide-react';
+import { Button } from './ui/button';
+import Cookies from 'js-cookie';
+import { useRouter } from 'next/navigation';
+import { useToast } from '@/hooks/use-toast';
+import { useEffect, useState } from 'react';
 
 const Header = () => {
-  return (
-    <>
-    {/* <motion.div
-        initial={{ y: -50, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
-        className="absolute top-4 left-8 z-10"
-      >
-        <Link href={'/home'}>
-          <div className="h-9 w-9 flex items-center justify-center bg-white rounded-full cursor-pointer shadow-md">
-            <Image
-              src="/logo.svg"
-              width={40}
-              height={40}
-              alt="logo"
-              priority
-              style={{ height: "auto", width: "auto" }}
-            />
-          </div>
-        </Link>
-      </motion.div> */}
+  const router = useRouter();
+  const { toast } = useToast();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+  // Periksa token hanya di sisi client
+  useEffect(() => {
+    const token = Cookies.get('authToken');
+    setIsLoggedIn(!!token);
+  }, []);
+
+  const handleLogout = () => {
+    Cookies.remove('authToken');
+    toast({
+      title: 'Goodbye!',
+      description: 'You have been logged out.',
+    });
+    router.push('/login'); // Arahkan ke halaman login
+  };
+
+  return (
+    <div className="flex justify-between items-center w-full absolute top-4 px-4 z-50">
+      {/* Tombol kiri */}
       <motion.div
         initial={{ y: -50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
+        transition={{ duration: 0.6, delay: 0.2, ease: 'easeOut' }}
+      >
+        {!isLoggedIn ? (
+          <Button onClick={() => router.push('/login')}>
+            <LogIn />
+          </Button>
+        ) : (
+          <Button onClick={handleLogout} variant="destructive">
+            <LogOut />
+          </Button>
+        )}
+      </motion.div>
+
+      {/* Tombol kanan */}
+      <motion.div
+        initial={{ y: -50, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.6, delay: 0.2, ease: 'easeOut' }}
       >
         <DarkThemeButton />
       </motion.div>
-    </>
-  )
-}
+    </div>
+  );
+};
 
-export default Header
+export default Header;

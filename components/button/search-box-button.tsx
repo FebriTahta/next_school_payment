@@ -28,9 +28,6 @@ const SearchBoxButton = () => {
           placeholder="Search..."
           className="cursor-pointer bg-transparent border-none outline-none focus:ring-0 flex-grow text-sm text-gray-900 dark:text-gray-100"
         />
-        <kbd className="pointer-events-none absolute right-2 hidden h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-xs font-medium opacity-100 sm:flex">
-            <span className="text-xs">Ctrl / ⌘</span>K
-        </kbd>
       </div>
 
       {results.length > 0 && (

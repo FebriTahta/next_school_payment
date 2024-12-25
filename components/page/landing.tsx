@@ -1,16 +1,22 @@
 'use client';
 import { useEffect } from 'react';
-// import { Lights } from "../background/lights";
-// import { Starfall } from "../background/star-fall";
-import { useRouter } from 'next/navigation'; // Tambahkan ini
+import { useRouter } from 'next/navigation';
+import Cookies from 'js-cookie';
 
 export const Landing = () => {
-  const router = useRouter(); // Inisialisasi router
+  const router = useRouter();
 
   useEffect(() => {
-    // Redirect ke halaman home setelah 3 detik
+    // Periksa apakah token login ada
+    const token = Cookies.get('authToken');
     const timer = setTimeout(() => {
-      router.push('/login'); // Navigasi ke halaman home
+
+      if (token) {
+        router.push('/home');
+      }else{
+        router.push('/login');
+      }
+
     }, 3000);
 
     return () => clearTimeout(timer);
@@ -24,7 +30,7 @@ export const Landing = () => {
         </h1>
         <div className="max-w-xl">
           <p className="text-white/[0.7] text-center mb-8 w-full">
-            Payment Administration System SMK Krian 1 
+            Administration Payment System
           </p>
         </div>
       </div>

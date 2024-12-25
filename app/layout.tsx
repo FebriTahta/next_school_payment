@@ -6,6 +6,7 @@ import { ThemeProvider } from "@/components/theme/theme-provider";
 import "./globals.css";
 import { BottomMenu } from "@/components/navigation/bottom-menu";
 import Header from "@/components/header";
+import { Toaster } from "@/components/ui/toaster";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -38,11 +39,11 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
+        <Toaster />
         <Starfall/>
+        
         {/* Header */}
-        <div className="absolute top-4 right-8 z-50">
-          <Header />
-        </div>
+        <Header />
 
         {/* Konten Utama */}
         <div className="flex-1 flex items-center justify-center">
