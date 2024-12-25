@@ -27,8 +27,7 @@ const fetchPaymentDetails = async (searchParams: SearchParams) => {
   };
 };
 
-export interface PageProps {
-  params: { slug: string };
+interface PageProps {
   searchParams: { [key: string]: string | string[] | undefined };
 }
 
