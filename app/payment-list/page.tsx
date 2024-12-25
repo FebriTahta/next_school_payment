@@ -28,16 +28,17 @@ const fetchPaymentDetails = async (searchParams: SearchParams) => {
 };
 
 interface PageProps {
-  searchParams: { [key: string]: string | string[] | undefined };
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }
 
 export default async function Page({ searchParams }: PageProps) {
+  const resolvedSearchParams = await searchParams;
   const typedSearchParams: SearchParams = {
-    payment_type: searchParams.payment_type as string | undefined,
-    i_pay: searchParams.i_pay as string | undefined,
-    nis: searchParams.nis as string | undefined,
-    kd_rombel: searchParams.kd_rombel as string | undefined,
-    token: searchParams.token as string | undefined,
+    payment_type: resolvedSearchParams.payment_type as string | undefined,
+    i_pay: resolvedSearchParams.i_pay as string | undefined,
+    nis: resolvedSearchParams.nis as string | undefined,
+    kd_rombel: resolvedSearchParams.kd_rombel as string | undefined,
+    token: resolvedSearchParams.token as string | undefined,
   };
 
   const props = await fetchPaymentDetails(typedSearchParams);
