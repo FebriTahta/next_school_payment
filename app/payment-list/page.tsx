@@ -1,7 +1,8 @@
-'use client'
+'use client';
 
-import { useSearchParams } from 'next/navigation'
-import PaymentList from "@/components/page/payment-list"
+import { useSearchParams } from 'next/navigation';
+import PaymentList from "@/components/page/payment-list";
+import { Suspense } from 'react';
 
 const Page = () => {
   const searchParams = useSearchParams();
@@ -18,15 +19,14 @@ const Page = () => {
     kd_rombel: kd_rombel,
     payment_type: payment_type,
     i_pay: i_pay,
-    token: token
-  }
-  
+    token: token,
+  };
+
   return (
-    <div>
+    <Suspense fallback={<div>...</div>}>
       <PaymentList props={props} />
-    </div>
-  )
-}
+    </Suspense>
+  );
+};
 
-export default Page
-
+export default Page;
