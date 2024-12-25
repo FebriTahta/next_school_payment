@@ -1,16 +1,24 @@
-'use client';
-
-import { useSearchParams } from 'next/navigation';
+import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import PaymentList from "@/components/page/payment-list";
-import { Suspense } from 'react';
 
-const Page = () => {
-  const searchParams = useSearchParams();
-  const payment_type = atob(searchParams.get('payment_type') || '-');
-  const i_pay = searchParams.get('i_pay') || 'List';
-  const nis = atob(searchParams.get('nis') || '-');
-  const kd_rombel = atob(searchParams.get('kd_rombel') || '-');
-  const token = atob(searchParams.get('token') || '-');
+type Props = {
+  title: string;
+  desc: string;
+  nis: string;
+  kd_rombel: string;
+  payment_type: string;
+  i_pay: string;
+  token: string;
+};
+
+export const getServerSideProps: GetServerSideProps<{ props: Props }> = async (context) => {
+  const query = context.query;
+
+  const payment_type = atob((query.payment_type as string) || '-');
+  const i_pay = (query.i_pay as string) || 'List';
+  const nis = atob((query.nis as string) || '-');
+  const kd_rombel = atob((query.kd_rombel as string) || '-');
+  const token = atob((query.token as string) || '-');
 
   const props = {
     title: `Active Payment : ${payment_type.toUpperCase()}`,
@@ -22,10 +30,14 @@ const Page = () => {
     token: token,
   };
 
+  return { props: { props } };
+};
+
+const Page = ({ props }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   return (
-    <Suspense fallback={<div>...</div>}>
+    <div>
       <PaymentList props={props} />
-    </Suspense>
+    </div>
   );
 };
 
