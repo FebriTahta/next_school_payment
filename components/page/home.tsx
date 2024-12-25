@@ -6,7 +6,7 @@ import { Card,CardHeader,CardTitle,CardDescription, CardContent } from "../ui/ca
 import { NotebookPen, BookMarked, LibraryBig, BookType, CalendarCheck2, School, FolderSearch, Grid2X2 } from "lucide-react";
 import { motion } from "framer-motion";
 import { MonthlyRecapPaymentResponse } from "@/interface/home";
-import { monthlyRecapPayment } from '@/app/api/home'; 
+import { monthlyRecapPayment } from '@/api/home'; 
 import SkeletonItemCard from '../skeleton-item-card';
 import CardItem from '../card-item';
 import { checkTokenActive } from '@/lib/jwt';
@@ -104,14 +104,14 @@ const Home = () => {
         >
       <div className="flex flex-col mt-[-30px] items-center justify-center">
         {/* card name */}
-        <Card className="flex z-50 dark:bg-transparent">
+        <Card className="flex z-50 dark:bg-slate-900 dark:bg-opacity-70">
           <CardHeader className="pt-2 pb-2">
             <CardTitle className="text-sm">{namaSiswa}</CardTitle>
             <CardDescription>{kdRombel}</CardDescription>
           </CardHeader>
         </Card>
         {/* card payment component */}
-        <Card className="z-20 pr-7 pl-7 mt-[-40px] w-full h-screen rounded-[30px] dark:bg-transparent">
+        <Card className="z-20 pr-7 pl-7 mt-[-40px] w-full h-screen rounded-[30px] dark:bg-slate-900 dark:bg-opacity-70">
           <CardHeader>
             <CardTitle className="mt-16">Payment Component</CardTitle>
           </CardHeader>
@@ -174,21 +174,20 @@ const Home = () => {
           <CardHeader>
             <div className="flex flex-row justify-between">
               <div className="flex flex-col text_left">
-                <p className="text-sm">Transaction This Month</p>
                 <small className="text-xs">Last transaction</small>
               </div>
              <div className="flex text-right">
-              <p className=" text-sm">More..</p>
+              <p className=" text-xs">More..</p>
              </div>
             </div>
           </CardHeader>
 
           
           {/* transaksi bulan ini */}
-          <div className="overflow-y-auto pb-4 h-52 scroll-smooth">
+          <div className="overflow-y-auto pb-4 h-[25vh] scroll-smooth">
             {
               loading || error ? (
-                <div className='className="flex flex-col justify-center mx-4 mb-4 p-4 gap-y-2 bg-gray-50 shadow-none dark:bg-transparent rounded-lg"'>
+                <div className='className="flex flex-col justify-center mx-4 mb-4 p-4 gap-y-2 bg-gray-50 shadow-none dark:bg-slate-900 dark:bg-opacity-70 rounded-lg"'>
                   <SkeletonItemCard/>
                 </div>
               ) 
@@ -198,7 +197,7 @@ const Home = () => {
                 ))
               )
             }
-            <div className="flex justify-center shadow-none dark:bg-transparent rounded-lg">
+            <div className="flex justify-center shadow-none dark:bg-slate-900 dark:bg-opacity-70 rounded-lg">
               {error && <p className="text-red-500 text-[8px]">{error}</p>}
             </div>
           </div>

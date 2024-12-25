@@ -1,8 +1,10 @@
 import { AvailablePaymentComponentsResponse } from "@/interface/payment-list";
+import { baseUrl } from "@/lib/url";
   
 export const availablePaymentComponents = async (nis: string, kd_rombel: string, komponen: string, token: string): Promise<AvailablePaymentComponentsResponse> => {
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/available-payment-comppnent/${nis}/${kd_rombel}/${komponen}`, {
+    const url = baseUrl();
+    const response = await fetch(`${url}/available-payment-comppnent/${nis}/${kd_rombel}/${komponen}`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',

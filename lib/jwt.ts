@@ -3,7 +3,7 @@ import { jwtDecode } from 'jwt-decode';
 import { AuthPayload } from "@/interface/home";
 
 export const validateJWT = async (token: string) => {
-  const secretKey = process.env.NEXT_PUBLIC_JWT_SECRET;
+  const secretKey = process.env.NEXT_PUBLIC_JWT_SECRET || 'secret';
   if (!secretKey) {
     throw new Error("JWT secret key tidak diset");
   }
@@ -22,9 +22,10 @@ export const validateJWT = async (token: string) => {
   }
 };
 
+
 export const checkTokenActive = (): 
   | { status: true; data: AuthPayload; cookieToken: string }
-  | { status: false; data: null; cookieToken: string } => {
+  | { status: false; data: number | string | null; cookieToken: string } => {
   const cookieAuth = document.cookie.split('; ').find((row) => row.startsWith('authToken='))?.split('=')[1];
   if (cookieAuth) {
     try {
@@ -34,7 +35,7 @@ export const checkTokenActive = ():
         return { status: true, data: decodedToken, cookieToken: cookieAuth }; // Token valid
       }
       console.log("Token tidak valid atau kedaluwarsa");
-      return { status: false, data: null, cookieToken: cookieAuth }; // Token invalid
+      return { status: false, data: 401, cookieToken: cookieAuth }; // Token invalid
     } catch (err) {
       console.error("Kesalahan validasi token:", err);
       return { status: false, data: null, cookieToken: cookieAuth }; // Error parsing

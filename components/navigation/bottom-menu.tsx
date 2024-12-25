@@ -1,30 +1,19 @@
 "use client";
 
-import { useState, useEffect } from 'react';
 import { Wallet, WalletMinimal, ListStart, Home } from "lucide-react";
 import Link from "next/link";
 import SearchBoxButton from "../button/search-box-button";
 import { usePathname } from "next/navigation";
-import { checkTokenActive } from '@/lib/jwt';
+// import { checkTokenActive } from '@/lib/jwt';
 
 
 export function BottomMenu() {
   const pathName = usePathname();
-  const [visible, setVisible] = useState(false);
-  
-  useEffect(() => {
-    const fetchData = async () => {
-      const statusToken = checkTokenActive();
-      setVisible(statusToken.status);
-    };
-  
-    fetchData();
-  }, []); // Dependency array kosong untuk memastikan `useEffect` hanya dijalankan sekali
   
 
   return (
     <>
-      {pathName !== "/" && visible !== false && pathName !== "/login" && (
+      {pathName !== "/" && pathName !== "/login" && (
         <div className="fixed inset-x-0 bottom-4 z-50 mx-auto w-full max-w-md pr-5 pl-5">
           <nav className="grid grid-cols-12 items-center gap-2 rounded-xl border bg-background/80 px-3 py-2 shadow-lg backdrop-blur-lg">
             {/* Home Button (2 columns) */}

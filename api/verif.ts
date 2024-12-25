@@ -1,6 +1,9 @@
+import { baseUrl } from "@/lib/url";
+
 export const fetchVerif = async (payload: string) => {
     try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/verification`, {
+        const url = baseUrl();
+        const response = await fetch(`${url}/verification`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',

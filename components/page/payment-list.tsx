@@ -4,7 +4,7 @@ import { Card, CardHeader, CardDescription, CardTitle } from "../ui/card";
 import { AvailabelPaymentComponentsPageProps, AvailablePaymentComponentsResponse } from "@/interface/payment-list";
 import { useState, useEffect } from 'react';
 import CardItem from "../card-item";
-import { availablePaymentComponents } from "@/app/api/payment-list";
+import { availablePaymentComponents } from "@/api/payment-list";
 import SkeletonItemCard from '../skeleton-item-card';
 
 const PaymentList = ({props}: AvailabelPaymentComponentsPageProps) => {
@@ -42,16 +42,16 @@ const PaymentList = ({props}: AvailabelPaymentComponentsPageProps) => {
           transition={{ duration: 0.6, delay: 0.6, ease: "easeOut" }}
          
         >
-      <div className="flex flex-col mt-[-30px] items-center justify-center">
+       <div className="flex flex-col mt-[2vh] items-center justify-center">
         {/* card name */}
-        <Card className="flex z-50 dark:bg-transparent">
+        <Card className="flex z-50 dark:bg-slate-900 dark:bg-opacity-70">
           <CardHeader className="pt-2 pb-2">
             <CardTitle className="text-sm">{props.title}</CardTitle>
             <CardDescription className="text-xs">{props.desc}</CardDescription>
           </CardHeader>
         </Card>
         {/* card payment component */}
-        <Card className="z-20 mt-[-40px] w-full h-screen rounded-[30px] dark:bg-transparent">
+        <Card className="z-20 mt-[-40px] w-full h-screen  pl-7 pr-7 rounded-[30px] dark:bg-slate-900 dark:bg-opacity-70">
 
           <CardHeader className="pr-5 pl-5 pt-16">
             <div className="flex flex-row justify-between">
@@ -80,13 +80,13 @@ const PaymentList = ({props}: AvailabelPaymentComponentsPageProps) => {
 
           
           {/* transaksi bulan ini */}
-          <div className="overflow-y-auto pb-4 h-[520px] scroll-smooth">
+          <div className="overflow-y-auto pb-4 h-[62vh] scroll-smooth">
             {
               loading || error || paymentList?.data.component_list.length == 0 ? (
-                <div className='className="flex flex-col justify-center mx-4 mb-4 gap-y-2 bg-gray-50 shadow-none dark:bg-transparent rounded-lg"'>
+                <div className='className="flex flex-col justify-center mx-4 mb-4 gap-y-2 bg-gray-50 shadow-none dark:bg-slate-900 dark:bg-opacity-70 rounded-lg"'>
                   <SkeletonItemCard/>
                   {paymentList?.data.component_list.length == 0 || error
-                  ? ( <div className="flex justify-center shadow-none dark:bg-transparent rounded-lg mt-5">
+                  ? ( <div className="flex justify-center shadow-none dark:bg-slate-900 dark:bg-opacity-70 rounded-lg mt-5">
                         <p className="text-red-500 text-[10px]">
                           {error ? error : '404 Not Available'}
                         </p>
