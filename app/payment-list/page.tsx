@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import PaymentList from "@/components/page/payment-list";
 
 interface SearchParams {
@@ -26,19 +27,19 @@ const fetchPaymentDetails = async (searchParams: SearchParams) => {
   };
 };
 
-const Page = async ({
-  searchParams,
-}: {
+interface PageProps {
   searchParams: SearchParams;
-}) => {
-  // Parsing searchParams
+}
+
+const Page = async ({ searchParams }: PageProps) => {
   const props = await fetchPaymentDetails(searchParams);
 
   return (
-    <div>
+    <Suspense fallback={<div>Loading...</div>}>
       <PaymentList props={props} />
-    </div>
+    </Suspense>
   );
 };
 
 export default Page;
+
