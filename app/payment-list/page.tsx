@@ -18,7 +18,7 @@ const fetchPaymentDetails = async (searchParams: { [key: string]: string | undef
   };
 };
 
-const Page = async ({ searchParams }: { searchParams: { [key: string]: string | undefined } }) => {
+const Page = async ({ searchParams }: { searchParams: Record<string, string | undefined> }) => {
   const props = await fetchPaymentDetails(searchParams);
 
   return (
